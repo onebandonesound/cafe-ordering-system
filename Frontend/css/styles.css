@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+/* CSS document for Cafe Web site */
+
+.center {
+  text-align: center;
+}
+
+.bodyStyle {
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: auto;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'sans-serif';
+  font-size: 16px;
+  background-color: #f8f8f8;
+  padding: 20px;
+}
+
+.mainHeader {
+  font-family: "Comic Sans MS", cursive;
+  font-size: 50px;
+  line-height: 60px;
+  color: #4a4a4a;
+  text-align: center;
+  padding: 20px;
+  background-color: #ffcc99;
+  border-radius: 10px;
+}
+
+.cursiveText {
+  font-family: "Comic Sans MS", cursive;
+  font-size: 18px;
+  line-height: 24px;
+  color: #333;
+  text-align: center;
+  padding: 10px;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 18px;
+  color: white;
+  background-color: #ff6600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e65c00;
+}
+
+#menuList {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+#menuList li {
+  background: #fff;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  text-align: center;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+input {
+  display: block;
+  width: 80%;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#orderResponse {
+  text-align: center;
+  font-size: 18px;
+  color: #28a745;
+  margin-top: 20px;
+}
