@@ -1,47 +1,49 @@
 import express from "express";
 import cors from "cors";
-import mysql from "mysql2/promise";
 import dotenv from "dotenv";
+import { query } from './database/db.js'; // Centralized database queries
 
-dotenv.config();
+dotenv.config(); // Load environment variables from .env file
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const dbConfig = {
-    host: "localhost",
-    user: "root",
-    password: "password",
-    database: "cafe"
-};
-
+// GET /menu - Fetch all menu items
 app.get("/menu", async (req, res) => {
     try {
-        const connection = await mysql.createConnection(dbConfig);
-        const [rows] = await connection.query("SELECT * FROM menu");
-        await connection.end();
+        // Query the database
+        const rows = await query("SELECT * FROM menu");
         res.json(rows);
     } catch (error) {
-        console.error(error);
+        console.error("Error fetching menu:", error.message);
         res.status(500).json({ error: "Database error" });
     }
 });
 
+// POST /order - Place a new order
 app.post("/order", async (req, res) => {
     try {
         const { customer_name, item_id, quantity } = req.body;
-        const total_price = quantity * 2.5; // Dummy price calculation
 
-        const connection = await mysql.createConnection(dbConfig);
-        const query = "INSERT INTO orders (customer_name, item_id, quantity, total_price) VALUES (?, ?, ?, ?)";
-        await connection.execute(query, [customer_name, item_id, quantity, total_price]);
-        await connection.end();
+        if (!customer_name || !item_id || !quantity) {
+            return res.status(400).json({ error: "All fields are required" });
+        }
+
+        // Dummy price calculation
+        const total_price = quantity * 2.5;
+
+        // Insert the new order into the database
+        const sql = "INSERT INTO orders (customer_name, item_id, quantity, total_price) VALUES (?, ?, ?, ?)";
+        await query(sql, [customer_name, item_id, quantity, total_price]);
 
         res.json({ message: "Order placed successfully!" });
     } catch (error) {
-        console.error(error);
+        console.error("Error placing order:", error.message);
         res.status(500).json({ error: "Database error" });
     }
 });
 
-app.listen(3000, () => console.log("Server running on port 3000"));
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
